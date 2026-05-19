@@ -73,8 +73,16 @@ Difficulté : Facile (~30 minutes)
 ---------------------------------------------------
 **Complétez et documentez ce fichier README.md** pour nous expliquer comment utiliser votre solution.  
 Faites preuve de pédagogie et soyez clair dans vos expliquations et processus de travail.  
-   
+
+
+Evaluation
 ---------------------------------------------------
+Cet atelier, **noté sur 20 points**, est évalué sur la base du barème suivant :  
+- Repository exécutable sans erreur majeure (4 points)
+- Fonctionnement conforme au scénario annoncé (4 points)
+- Degré d'automatisation du projet (utilisation de Makefile ? script ? ...) (4 points)
+---------------------------------------------------
+
 TRAVAIL RÉALISÉ :
 
 # 🚀 API-Driven Infrastructure (AWS LocalStack)
@@ -295,12 +303,5 @@ Elle démontre la capacité à piloter une infrastructure cloud de manière tota
 ## 👨‍💻 Auteur
 
 Projet réalisé dans le cadre d'un atelier DevOps / AWS sur les architectures API-driven.
-
-Evaluation
----------------------------------------------------
-Cet atelier, **noté sur 20 points**, est évalué sur la base du barème suivant :  
-- Repository exécutable sans erreur majeure (4 points)
-- Fonctionnement conforme au scénario annoncé (4 points)
-- Degré d'automatisation du projet (utilisation de Makefile ? script ? ...) (4 points)
 - Qualité du Readme (lisibilité, erreur, ...) (4 points)
 - Processus travail (quantité de commits, cohérence globale, interventions externes, ...) (4 points) 
