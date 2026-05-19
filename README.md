@@ -75,6 +75,227 @@ Difficulté : Facile (~30 minutes)
 Faites preuve de pédagogie et soyez clair dans vos expliquations et processus de travail.  
    
 ---------------------------------------------------
+TRAVAIL RÉALISÉ :
+
+# 🚀 API-Driven Infrastructure (AWS LocalStack)
+
+## 📌 Objectif du projet
+
+Ce projet a pour objectif de simuler une architecture **API-driven infrastructure** dans laquelle une requête HTTP déclenche des actions sur une instance EC2 via :
+
+- API Gateway
+- AWS Lambda
+- EC2 (simulé via LocalStack)
+- GitHub Codespaces
+
+L'ensemble est exécuté dans un environnement AWS simulé grâce à **LocalStack**, sans utilisation de la console AWS.
+
+---
+
+## 🏗️ Architecture
+
+Le flux global du projet est le suivant :
+
+```
+Client (curl / Makefile)
+        ↓
+API Gateway (LocalStack)
+        ↓
+AWS Lambda (ec2-controller)
+        ↓
+EC2 Instance (start / stop / status)
+```
+
+---
+
+## ⚙️ Technologies utilisées
+
+- AWS CLI (avec LocalStack)
+- LocalStack (simulation AWS)
+- AWS Lambda (Python 3.10)
+- API Gateway (REST API)
+- EC2 (instance simulée)
+- Makefile (automatisation)
+- GitHub Codespaces
+
+---
+
+## 🧪 Fonctionnalités
+
+L'API permet de gérer une instance EC2 avec 3 actions :
+
+| Action | Description |
+|--------|-------------|
+| `start`  | Démarrer l'instance |
+| `stop`   | Arrêter l'instance |
+| `status` | Vérifier l'état de l'instance |
+
+---
+
+## 🚀 Déploiement du projet
+
+### 1. Lancer LocalStack
+
+```bash
+localstack start -d
+```
+
+Vérifier les services :
+
+```bash
+localstack status services
+```
+
+### 2. Variables d'environnement
+
+Avant utilisation :
+
+```bash
+export AWS_ENDPOINT_URL=http://localhost:4566
+export API_ID=<your-api-id>
+export EC2_RESOURCE_ID=<your-resource-id>
+export ROOT_ID=<your-root-id>
+```
+
+### 3. Création de l'infrastructure AWS (LocalStack)
+
+**API Gateway**
+
+```bash
+aws --endpoint-url=$AWS_ENDPOINT_URL apigateway create-rest-api --name ec2-api
+```
+
+**Déploiement Lambda**
+
+```bash
+make deploy-lambda
+```
+
+**Déploiement API**
+
+```bash
+aws --endpoint-url=$AWS_ENDPOINT_URL apigateway create-deployment \
+  --rest-api-id $API_ID \
+  --stage-name dev
+```
+
+---
+
+## 📡 Utilisation de l'API
+
+### Stop instance
+
+```bash
+make stop
+```
+
+ou
+
+```bash
+curl -X POST \
+  http://localhost:4566/restapis/$API_ID/dev/_user_request_/ec2 \
+  -H "Content-Type: application/json" \
+  -d '{"action":"stop"}'
+```
+
+### Start instance
+
+```bash
+make start
+```
+
+### Status instance
+
+```bash
+make status
+```
+
+---
+
+## 🧠 Automatisation (Makefile)
+
+| Commande | Description |
+|----------|-------------|
+| `make deploy-lambda` | Déploiement Lambda |
+| `make test-all` | Test complet |
+| `make validate` | Validation infrastructure |
+| `make full` | Pipeline complet |
+| `make clean` | Nettoyage |
+
+---
+
+## 🧪 Exemple de test complet
+
+```bash
+make test-all
+```
+
+Résultat attendu :
+
+- ✅ Stop instance
+- ✅ Start instance
+- ✅ Status = running
+
+---
+
+## 📊 Validation du projet
+
+```bash
+make validate
+```
+
+Vérifie :
+
+- ✅ EC2 instances
+- ✅ Lambda function
+- ✅ API Gateway
+
+---
+
+## 📁 Structure du projet
+
+```
+API_Driven/
+│
+├── lambda/
+│   ├── lambda_function.py
+│   └── lambda.zip
+│
+├── Makefile
+├── init.sh
+└── README.md
+```
+
+---
+
+## 🎯 Résultat attendu
+
+Ce projet démontre :
+
+- ✅ Une architecture API-driven complète
+- ✅ Une orchestration serverless (Lambda)
+- ✅ Un contrôle d'infrastructure via HTTP
+- ✅ Une simulation AWS via LocalStack
+- ✅ Une automatisation via Makefile
+
+---
+
+## 🏁 Conclusion
+
+Cette architecture illustre un flux cloud moderne :
+
+```
+Client HTTP → API Gateway → Lambda → EC2
+```
+
+Elle démontre la capacité à piloter une infrastructure cloud de manière totalement automatisée et programmatique.
+
+---
+
+## 👨‍💻 Auteur
+
+Projet réalisé dans le cadre d'un atelier DevOps / AWS sur les architectures API-driven.
+
 Evaluation
 ---------------------------------------------------
 Cet atelier, **noté sur 20 points**, est évalué sur la base du barème suivant :  
